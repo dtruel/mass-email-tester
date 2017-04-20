@@ -1,1 +1,3 @@
 node_modules/*
+create-test-emails.js
+testemails.csv
