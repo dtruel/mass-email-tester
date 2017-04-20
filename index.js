@@ -7,13 +7,19 @@ const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
 
+var time
+
 if (cluster.isMaster) {
 	console.log(`Master ${process.pid} is running`);
 
 	function messageHandler(msg) {
 		if (msg.cmd && msg.cmd === 'emailReceived') {
+			if(!time){
+				time = process.hrtime();
+			}
 			numEmails += 1;
-			console.log("NUM EMAILS = " + numEmails);
+			console.log("NUM EMAILS =        " + numEmails);
+			console.log("Emails per minute = " + numEmails/time[0]*60);
 		}
 	}
 
